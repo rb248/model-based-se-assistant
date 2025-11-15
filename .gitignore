@@ -1,4 +1,4 @@
-# Github's default gitignore for Python
+m# Github's default gitignore for Python
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -7,10 +7,11 @@ __pycache__/
 
 # C extensions
 *.so
-
+*.mp3
 # Distribution / packaging
 .Python
 build/
+ag/
 develop-eggs/
 dist/
 downloads/
@@ -175,6 +176,10 @@ products_vectorstore/
 # ignore gradio private files
 .gradio
 /.gradio
+
+# Ignore week1 ipynb files to avoid accidentally leaking secrets
+week1/*.ipynb
+week1/**/*.ipynb
 
 # ignore diagnostics reports
 **/report.txt

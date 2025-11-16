@@ -1,122 +1,262 @@
-# LLM Engineering - Master AI and LLMs
+# Model-Based Software Engineering Assistant 🤖
 
-## Your 8 week journey to proficiency starts today
+A production-ready AI-powered system that transforms UML/PlantUML diagrams into fully refactored, tested, and documented code using multi-agent orchestration with LangGraph.
 
-![Voyage](voyage.jpg)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-I'm so happy you're joining me on this path. We'll be building immensely satisfying projects in the coming weeks. Some will be easy, some will be challenging, many will ASTOUND you! The projects build on each other so you develop deeper and deeper expertise each week. One thing's for sure: you're going to have a lot of fun along the way.
+## 🎯 Overview
 
-### Before you begin
+This system implements a complete **Model-Based Software Engineering (MBSE)** workflow that:
 
-I'm here to help you be most successful with your learning! If you hit any snafus, or if you have any ideas on how I can improve the course, please do reach out in the platform or by emailing me direct (ed@edwarddonner.com). It's always great to connect with people on LinkedIn to build up the community - you'll find me here:  
-https://www.linkedin.com/in/eddonner/  
-And this is new to me, but I'm also trying out X/Twitter at [@edwarddonner](https://x.com/edwarddonner) - if you're on X, please show me how it's done 😂  
+1. **Parses** UML/PlantUML models into intermediate representation
+2. **Analyzes** designs using SOLID principles, design patterns, and RAG-enhanced knowledge base
+3. **Generates** refactored, production-ready code with proper abstractions
+4. **Creates** comprehensive test suites with analysis-aware test generation
+5. **Executes** tests in sandboxed environments
+6. **Critiques** and suggests improvements
+7. **Saves** all artifacts persistently with full project memory
 
-Resources to accompany the course, including the slides and useful links, are here:  
-https://edwarddonner.com/2024/11/13/llm-engineering-resources/
-
-## Instant Gratification instructions for Week 1, Day 1
-
-### Important note: see my warning about Llama3.3 below - it's too large for home computers! Stick with llama3.2! Several students have missed this warning...
-
-We will start the course by installing Ollama so you can see results immediately!
-1. Download and install Ollama from https://ollama.com noting that on a PC you might need to have administrator permissions for the install to work properly
-2. On a PC, start a Command prompt / Powershell (Press Win + R, type `cmd`, and press Enter). On a Mac, start a Terminal (Applications > Utilities > Terminal).
-3. Run `ollama run llama3.2` or for smaller machines try `ollama run llama3.2:1b` - **please note** steer clear of Meta's latest model llama3.3 because at 70B parameters that's way too large for most home computers!  
-4. If this doesn't work: you may need to run `ollama serve` in another Powershell (Windows) or Terminal (Mac), and try step 3 again. On a PC, you may need to be running in an Admin instance of Powershell.  
-5. And if that doesn't work on your box, I've set up this on the cloud. This is on Google Colab, which will need you to have a Google account to sign in, but is free:  https://colab.research.google.com/drive/1-_f5XZPsChvfU1sJ0QqCePtIuc55LSdu?usp=sharing
-
-Any problems, please contact me!
-
-## Then, Setup instructions
-
-After we do the Ollama quick project, and after I introduce myself and the course, we get to work with the full environment setup.  
-
-Hopefully I've done a decent job of making these guides bulletproof - but please contact me right away if you hit roadblocks:
-
-- PC people please follow the instructions in [SETUP-PC.md](SETUP-PC.md)
-- Mac people please follow the instructions in [SETUP-mac.md](SETUP-mac.md)  
-- Linux people please follow the instructions in [SETUP-linux.md](SETUP-linux.md)
-
-The are also PDF versions of the setup instructions in this folder if you'd prefer.
-
-### An important point on API costs (which are optional! No need to spend if you don't wish)
-
-During the course, I'll suggest you try out the leading models at the forefront of progress, known as the Frontier models. I'll also suggest you run open-source models using Google Colab. These services have some charges, but I'll keep cost minimal - like, a few cents at a time. And I'll provide alternatives if you'd prefer not to use them.
-
-Please do monitor your API usage to ensure you're comfortable with spend; I've included links below. There's no need to spend anything more than a couple of dollars for the entire course. Some AI providers such as OpenAI require a minimum credit like \$5 or local equivalent; we should only spend a fraction of it, and you'll have plenty of opportunity to put it to good use in your own projects. During Week 7 you have an option to spend a bit more if you're enjoying the process - I spend about \$10 myself and the results make me very happy indeed! But it's not necessary in the least; the important part is that you focus on learning.
-
-### Free alternative to Paid APIs
-
-Early in the course, I show you an alternative if you'd rather not spend anything on APIs:  
-Any time that we have code like:  
-`openai = OpenAI()`  
-You can use this as a direct replacement:  
-`openai = OpenAI(base_url='http://localhost:11434/v1', api_key='ollama')`
-
-Below is a full example:
+## 🏗️ Architecture
 
 ```
-# You need to do this one time on your computer
-!ollama pull llama3.2
-
-from openai import OpenAI
-MODEL = "llama3.2"
-openai = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
-
-response = openai.chat.completions.create(
- model=MODEL,
- messages=[{"role": "user", "content": "What is 2 + 2?"}]
-)
-
-print(response.choices[0].message.content)
+👤 User
+    │
+    ▼
+🤖 Model-Based SE Orchestrator Agent (LangGraph)
+    ├── 🗂️ Model Parser Agent → 🧰 uml_to_json_tool
+    ├── 🔍 Model Analysis Agent → 📚 design_rule_RAG + 📐 pattern_checker + 🧠 project_memory
+    ├── 🏗️ Code Generation Agent → 🧰 code_writer_tool + 🧰 test_generator_tool
+    ├── 🧪 Test & Verification Agent → 🧰 code_executor_tool + 🧰 unit_test_runner_tool
+    └── 🧑‍🏫 Critic & Refactoring Agent → 📄 improvement_suggestions_tool
+    │
+    ▼
+📦 Final Output: Code + Tests + Analysis + Reports
 ```
 
-### How this Repo is organized
+## ✨ Key Features
 
-There are folders for each of the "weeks", representing modules of the class, culminating in a powerful autonomous Agentic AI solution in Week 8 that draws on many of the prior weeks.    
-Follow the setup instructions above, then open the Week 1 folder and prepare for joy.
+### 🔍 **Advanced Design Analysis**
+- **SOLID Principles**: Detects violations of SRP, OCP, LSP, ISP, DIP
+- **Design Patterns**: Identifies missing abstractions and suggests patterns
+- **Code Metrics**: LCOM (cohesion), fan-in/fan-out (coupling), cyclomatic complexity
+- **RAG-Enhanced**: Retrieves relevant design knowledge from vector database (FAISS/Chroma)
 
-### The most important part
+### 🏗️ **Intelligent Code Generation**
+- **Refactoring-Aware**: Automatically splits god classes and extracts interfaces
+- **Dependency Injection**: Implements proper DI patterns
+- **Analysis-Driven**: Uses analysis findings to guide refactoring decisions
+- **Multi-File Output**: Generates organized project structure
 
-The mantra of the course is: the best way to learn is by **DOING**. I don't type all the code during the course; I execute it for you to see the results. You should work along with me or after each lecture, running each cell, inspecting the objects to get a detailed understanding of what's happening. Then tweak the code and make it your own. There are juicy challenges for you throughout the course. I'd love it if you wanted to submit a Pull Request for your code (instructions [here](https://chatgpt.com/share/677a9cb5-c64c-8012-99e0-e06e88afd293)) and I can make your solutions available to others so we share in your progress; as an added benefit, you'll be recognized in GitHub for your contribution to the repo. While the projects are enjoyable, they are first and foremost designed to be _educational_, teaching you business skills that can be put into practice in your work.
+### 🧪 **Comprehensive Testing**
+- **Analysis-Aware Tests**: Generates tests for cohesion, coupling, DI patterns
+- **Multiple Test Types**: Unit, integration, dependency injection, cohesion tests
+- **Sandbox Execution**: Safe isolated test execution with timeout protection
+- **Coverage Analysis**: Tracks test coverage and quality
 
-## Starting in Week 3, we'll also be using Google Colab for running with GPUs
+### 🛡️ **Production Ready**
+- **LLM Fallback**: Automatic fallback from Gemini to GPT-4o-mini
+- **Retry Logic**: Exponential backoff with configurable retries
+- **Error Handling**: Comprehensive error tracking and recovery
+- **Persistent Storage**: All artifacts saved with project memory
 
-You should be able to use the free tier or minimal spend to complete all the projects in the class. I personally signed up for Colab Pro+ and I'm loving it - but it's not required.
+## 🚀 Quick Start
 
-Learn about Google Colab and set up a Google account (if you don't already have one) [here](https://colab.research.google.com/)
+### Prerequisites
 
-The colab links are in the Week folders and also here:  
-- For week 3 day 1, this Google Colab shows what [colab can do](https://colab.research.google.com/drive/1DjcrYDZldAXKJ08x1uYIVCtItoLPk1Wr?usp=sharing)
-- For week 3 day 2, here is a colab for the HuggingFace [pipelines API](https://colab.research.google.com/drive/1aMaEw8A56xs0bRM4lu8z7ou18jqyybGm?usp=sharing)
-- For week 3 day 3, here's the colab on [Tokenizers](https://colab.research.google.com/drive/1WD6Y2N7ctQi1X9wa6rpkg8UfyA4iSVuz?usp=sharing)
-- For week 3 day 4, we go to a colab with HuggingFace [models](https://colab.research.google.com/drive/1hhR9Z-yiqjUe7pJjVQw4c74z_V3VchLy?usp=sharing)
-- For week 3 day 5, we return to colab to make our [Meeting Minutes product](https://colab.research.google.com/drive/1KSMxOCprsl1QRpt_Rq0UqCAyMtPqDQYx?usp=sharing)
-- For week 7, we will use these Colab books: [Day 1](https://colab.research.google.com/drive/15rqdMTJwK76icPBxNoqhI7Ww8UM-Y7ni?usp=sharing) | [Day 2](https://colab.research.google.com/drive/1T72pbfZw32fq-clQEp-p8YQ4_qFKv4TP?usp=sharing) | [Days 3 and 4](https://colab.research.google.com/drive/1csEdaECRtjV_1p9zMkaKKjCpYnltlN3M?usp=sharing) | [Day 5](https://colab.research.google.com/drive/1igA0HF0gvQqbdBD4GkcK3GpHtuDLijYn?usp=sharing)
+- Python 3.12+
+- OpenAI API key (for fallback)
+- Google Gemini API key (optional, primary LLM)
 
-### Monitoring API charges
+### Installation
 
-You can keep your API spend very low throughout this course; you can monitor spend at the dashboards: [here](https://platform.openai.com/usage) for OpenAI, [here](https://console.anthropic.com/settings/cost) for Anthropic and [here](https://console.cloud.google.com/apis/api/generativelanguage.googleapis.com/cost) for Google Gemini.
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/model-based-se-assistant.git
+cd model-based-se-assistant
 
-The charges for the exercsies in this course should always be quite low, but if you'd prefer to keep them minimal, then be sure to always choose the cheapest versions of models:
-1. For OpenAI: Always use model `gpt-4o-mini` in the code instead of `gpt-4o`
-2. For Anthropic: Always use model `claude-3-haiku-20240307` in the code instead of the other Claude models
-3. During week 7, look out for my instructions for using the cheaper dataset
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-Please do message me or email me at ed@edwarddonner.com if this doesn't work or if I can help with anything. I can't wait to hear how you get on.
+# Install dependencies
+pip install -r requirements.txt
 
-<table style="margin: 0; text-align: left;">
-    <tr>
-        <td style="width: 150px; height: 150px; vertical-align: middle;">
-            <img src="resources.jpg" width="150" height="150" style="display: block;" />
-        </td>
-        <td>
-            <h2 style="color:#f71;">Other resources</h2>
-            <span style="color:#f71;">I've put together this webpage with useful resources for the course. This includes links to all the slides.<br/>
-            <a href="https://edwarddonner.com/2024/11/13/llm-engineering-resources/">https://edwarddonner.com/2024/11/13/llm-engineering-resources/</a><br/>
-            Please keep this bookmarked, and I'll continue to add more useful links there over time.
-            </span>
-        </td>
-    </tr>
-</table>
+# Set up environment variables
+cp .env.example .env
+# Edit .env and add your API keys:
+# OPENAI_API_KEY=your_key_here
+# GOOGLE_API_KEY=your_key_here (optional)
+```
+
+### Usage
+
+```python
+from backend.graph import get_compiled_graph
+
+# Define your UML model
+plantuml_model = """
+@startuml
+class OrderManager {
+  +database: Database
+  +emailService: EmailService
+  +createOrder(userId, items): Order
+  +calculateTotal(order): float
+  +sendConfirmationEmail(order)
+}
+class Database {
+  +save(data)
+}
+class EmailService {
+  +send(to, subject, body)
+}
+OrderManager --> Database
+OrderManager --> EmailService
+@enduml
+"""
+
+# Create workflow graph
+graph = get_compiled_graph()
+
+# Execute workflow
+result = graph.invoke({
+    "project_id": "my-project",
+    "model_text": plantuml_model,
+    "model_format": "plantuml",
+    "description": "Order management system"
+})
+
+# Access generated artifacts
+print(f"Generated {len(result['generated_code']['files'])} files")
+print(f"Found {len(result['analysis_report']['findings'])} issues")
+print(f"Created {result['generated_tests']['total_tests']} tests")
+```
+
+### Output Structure
+
+```
+projects/my-project/
+├── analysis_report.json    # Design analysis
+├── memory.json              # Project memory
+├── interfaces.py            # Extracted interfaces
+├── models.py                # Data models
+├── repositories/            # Repository pattern
+├── services/                # Service layer
+└── tests/                   # All test files
+    ├── __init__.py
+    ├── test_interfaces.py
+    ├── test_models.py
+    └── test_services.py
+```
+
+## 📊 Workflow Steps
+
+1. **Parse** (`node_parse_model`) - Converts PlantUML to JSON IR
+2. **Analyze** (`node_analyze_model`) - Detects design issues with RAG
+3. **Generate Code** (`node_generate_code`) - Creates refactored code
+4. **Generate Tests** (`node_generate_tests`) - Creates analysis-aware tests
+5. **Save Artifacts** (`node_save_artifacts`) - Persists files to disk
+6. **Execute Tests** (`node_run_tests`) - Runs pytest in sandbox
+7. **Critique** (`node_critique`) - Reviews and suggests improvements
+8. **Final Report** (`node_final_report`) - Assembles comprehensive report
+
+## 🧪 Running Tests
+
+```bash
+# Run all unit tests (excludes integration tests that require LLM)
+pytest -m "not integration"
+
+# Run integration tests (requires API keys)
+pytest -m integration
+
+# Run with coverage
+pytest --cov=backend --cov-report=html
+
+# Run full workflow test
+python scripts/test_full_workflow.py
+```
+
+## 🔧 Configuration
+
+Edit `backend/config.py` or use environment variables:
+
+```python
+# LLM Configuration
+LLM_PROVIDER = "gemini"              # Primary LLM: "gemini" or "openai"
+LLM_FALLBACK_MODEL = "gpt-4o-mini"   # Fallback model
+LLM_MAX_TOKENS = 8192                # Max output tokens
+LLM_MAX_RETRIES = 3                  # Retry attempts
+
+# RAG Configuration
+RAG_BACKEND = "faiss"                # Vector DB: "faiss" or "chroma"
+EMBEDDING_PROVIDER = "google"        # Embeddings: "google" or "ollama"
+
+# Project Settings
+PROJECTS_DIR = "./projects"          # Output directory
+SANDBOX_TIMEOUT = 60                 # Test timeout (seconds)
+```
+
+## 📚 Documentation
+
+- [Architecture Overview](backend/README.md)
+- [Agent Specifications](backend/agents.py)
+- [Graph Workflow](backend/graph.py)
+- [Knowledge Base](data/knowledge_base/)
+- [Test Suite](tests/)
+
+## 🎯 Use Cases
+
+- **Model-Driven Development**: Transform UML to code automatically
+- **Legacy Code Refactoring**: Analyze and refactor existing designs
+- **Design Review**: Automated SOLID/pattern analysis
+- **Test Generation**: Create comprehensive test suites from models
+- **Documentation**: Generate analysis reports and improvement plans
+
+## 🔍 Example Results
+
+From a God Class with 6 methods and multiple responsibilities:
+
+**Before:**
+```python
+class OrderManager:
+    def createOrder(...)
+    def calculateTotal(...)
+    def sendEmail(...)
+    def saveToDatabase(...)
+    def generateInvoice(...)
+    def logActivity(...)
+```
+
+**After (7 refactored files):**
+- `interfaces.py` - IRepository, IEmailService, ILogger
+- `models.py` - Order, OrderItem data classes
+- `repositories/` - Database abstractions
+- `services/` - OrderService, EmailService, LogService
+- `tests/` - 12+ comprehensive tests
+
+## 🤝 Contributing
+
+Contributions welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new functionality
+4. Submit a pull request
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file
+
+## 🙏 Acknowledgments
+
+- Built with [LangChain](https://github.com/langchain-ai/langchain) and [LangGraph](https://github.com/langchain-ai/langgraph)
+- Uses [FAISS](https://github.com/facebookresearch/faiss) for vector similarity
+- Inspired by SOLID principles and design patterns literature
+
+## 📧 Contact
+
+For questions or support, please open an issue on GitHub.
+
+---
+
+**⭐ Star this repo if you find it useful!**

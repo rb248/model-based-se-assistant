@@ -4,93 +4,21 @@ Model-Based Software Engineering Assistant (MBSE Assistant)
 A compact multi-agent system that converts UML/PlantUML diagrams into refactored code, tests, and analysis reports. The workflow is designed for clarity and easy extension.
 
 Overview
---------
-- Parse UML (PlantUML) into an intermediate representation (IR)
-- Analyze for SOLID/design-pattern issues (deterministic detectors + LLM/RAG)
-- Generate refactored Python code (services, repositories, interfaces)
-- Generate pytest tests and run them in a sandbox with self-correction for syntax/import errors
-- Produce `analysis_report` with `findings`, `recommendations`, `patterns_detected`, and `strengths`
 
 Quick start
 # Screenshot
 ![MBSE Assistant screenshot](images/image.png)
 
----
 
------------
 
-Prerequisites: Python 3.12+, Node.js (for UI)
-
-Install:
-
-```bash
-git clone https://github.com/yourusername/model-based-se-assistant.git
-cd model-based-se-assistant
-python -m venv ag
-source ag/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-```
-
-Run backend + UI (development):
-
-```bash
-# Backend
-source ag/bin/activate
-uvicorn backend.api:app --reload --port 8000
-
-# Frontend (dev)
-cd ui
-npm install
-npm run dev
-# Browse http://localhost:5173
-```
-
-Build UI for production: `cd ui && npm run build` and serve `ui/dist` from a static host or backend.
-
-Key features
-------------
-- Deterministic detectors: god classes, coupling, long parameter lists
-- LLM-enhanced RAG: context-aware recommendations
-- Patterns detected: Repository, Service, Controller/Router, Strategy, Factory, Facade, Adapter, Observer
-- Strengths: highlights good practices (naming, DI, separation of concerns)
-- Self-correction loop for syntax/import errors during test runs
-
-Configuration
--------------
-Edit `backend/config.py` or `.env`:
-
-```text
-PROJECTS_DIR=./projects
-LLM_PROVIDER=gemini
-LLM_FALLBACK_MODEL=gpt-4o-mini
-SANDBOX_TIMEOUT=60
-```
-
-Testing
--------
-Unit tests: `pytest -m "not integration"`
-Integration tests (LLM keys required): `pytest -m integration`
-
-Development notes
------------------
-- Avoid `uvicorn --reload` watching the repository while generated artifacts are written; set `PROJECTS_DIR` outside the repo to avoid unintended reloads.
-- The UI can render `analysis_report.patterns_detected` and `analysis_report.strengths` for quick insight into what is already good.
-
-Contributing
-------------
-Fork, add tests, open a PR, describe the change and scope (analysis, codegen, tests, UI).
-
-License
--------
-MIT
+...existing code...
 Model-Based Software Engineering Assistant
 
 This repository provides a multi-agent system that turns UML/PlantUML diagrams into refactored code, tests, and architectural guidance.
 
 Overview
 --------
-
+[[Diagram of the architecture and workflow]](images/workflow.png)
 This project uses a LangGraph workflow with multiple agents to:
 
 - parse UML (PlantUML) into an intermediate representation (IR)

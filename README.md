@@ -3,10 +3,9 @@ Model-Based Software Engineering Assistant (MBSE Assistant)
 
 A compact multi-agent system that converts UML/PlantUML diagrams into refactored code, tests, and analysis reports. The workflow is designed for clarity and easy extension.
 
-Overview
+# Overview
 
-Quick start
-# Screenshot
+## Screenshot
 ![MBSE Assistant screenshot](images/image.png)
 
 
@@ -15,10 +14,10 @@ Quick start
 Model-Based Software Engineering Assistant
 
 This repository provides a multi-agent system that turns UML/PlantUML diagrams into refactored code, tests, and architectural guidance.
-
-Overview
+## Architecture and Workflow
 --------
-[[Diagram of the architecture and workflow]](images/workflow.png)
+![Diagram of the architecture and workflow](images/workflow.png)
+
 This project uses a LangGraph workflow with multiple agents to:
 
 - parse UML (PlantUML) into an intermediate representation (IR)

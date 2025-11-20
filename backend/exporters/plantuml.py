@@ -1,4 +1,4 @@
-    """PlantUML export helpers."""
+"""PlantUML export helpers."""
 
 from __future__ import annotations
 
